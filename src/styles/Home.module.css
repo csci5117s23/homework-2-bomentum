@@ -1,0 +1,15 @@
+
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1%;
+  min-height: 60vh;
+}
+
+.footer {
+  background-color: aqua;
+  position: relative;
+  height: 30px;
+}
