@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 export default function ToDos() {
   const [userInput, setUserInput] = useState("");
   const [todoList, setToDoList] = useState([]);
+  // const [addItem, setAddItem] = useRouter();
 
   const handleChange = (e) => {
     e.preventDefault();
@@ -14,6 +15,11 @@ export default function ToDos() {
   const handleSubmit = (e) => {
     e.preventDefault();
     setToDoList([userInput, ...todoList]);
+    try {
+      alert("Valid");
+    } catch (error) {
+      alert("Not Valid");
+    }
   };
 
   return (

@@ -1,1 +1,29 @@
-[]
+[
+  [
+    "todos",
+    {
+      "1876ba233d9-6ippu5e48zr5x9": {
+        "_id": "1876ba233d9-6ippu5e48zr5x9"
+      },
+      "1876ba29c92-qbos2f7uw58mrj": {
+        "_id": "1876ba29c92-qbos2f7uw58mrj"
+      },
+      "1876ba2a0d8-i1hzpd68xs0kfy": {
+        "_id": "1876ba2a0d8-i1hzpd68xs0kfy"
+      },
+      "1876ba2d83e-vkn1hea3h7qgp3": {
+        "_id": "1876ba2d83e-vkn1hea3h7qgp3"
+      },
+      "1876ba2d84a-677ucvxskykf1s": {
+        "_id": "1876ba2d84a-677ucvxskykf1s"
+      },
+      "1876ba46bec-7j2w9kprsggfpf": {
+        "_id": "1876ba46bec-7j2w9kprsggfpf"
+      }
+    }
+  ],
+  [
+    "_dbmetadata",
+    {}
+  ]
+]

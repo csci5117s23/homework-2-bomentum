@@ -1,26 +1,49 @@
 import "@/styles/globals.css";
 import { useState, useEffect } from "react";
+import {
+    ClerkProvider,
+    SignedIn,
+    SignedOut,
+    UserButton,
+    SignIn,
+} from "@clerk/nextjs";
+import { useRouter } from "next/router";
 
-//Nextjs backend API endpoint and API token
-const API_ENDPOINT = "https://backend-m00k.api.codehooks.io/dev/";
-const API_KEY = "3870bfad-706b-4a7c-bbfb-82a431d6d140";
+//  List pages you want to be publicly accessible, or leave empty if
+//  every page requires authentication. Use this naming strategy:
+//   "/"              for pages/index.js
+//   "/foo"           for pages/foo/index.js
+//   "/foo/bar"       for pages/foo/bar.js
+//   "/foo/[...bar]"  for pages/foo/[...bar].js
+const publicPages = ["/sign-in/[[...index]]", "/sign-up/[[...index]]"];
+const localization = {
+    socialButtonsBlockButton: "Sign In with {{provider|titleize}}",
+};
 
-export default function App({ Component, pageProps }) {
-  const [load, setLoad] = useState(null);
+export default function MyApp({ Component, pageProps }) {
+    // Get the pathname
+    const { pathname } = useRouter();
 
-  useEffect(() => {
-    // Call Codehooks backend API
-    const fetchData = async () => {
-      const response = await fetch(API_ENDPOINT, {
-        method: "GET",
-        headers: { "x-apikey": API_KEY },
-      });
-      const data = await response.json();
-      // Change application state and reload
-      setLoad(false);
-    };
-    fetchData();
-  }, []);
+    // Check if the current route matches a public page
+    const isPublicPage = publicPages.includes(pathname);
 
-  return <Component {...pageProps} />;
+    // If the current route is listed as public, render it directly
+    // Otherwise, use Clerk to require authentication
+    return (
+        <ClerkProvider {...pageProps}>
+            {isPublicPage ? (
+                <Component {...pageProps} />
+            ) : (
+                <>
+                    <SignedIn>
+                        <UserButton />
+                        <Component {...pageProps} />
+                    </SignedIn>
+                    <SignedOut>
+                        <SignIn localization={localization} />
+                    </SignedOut>
+                </>
+            )}
+        </ClerkProvider>
+    );
 }
