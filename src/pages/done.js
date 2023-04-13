@@ -1,30 +1,58 @@
 import Link from "next/link";
+import { useAuth } from "@clerk/nextjs";
+import { useState, useEffect } from "react";
+import { getFontDefinitionFromNetwork } from "next/dist/server/font-utils";
 
 //Nextjs backend API endpoint and API token
-const API_ENDPOINT = "https://backend-m00k.api.codehooks.io/dev/";
-const API_KEY = "3870bfad-706b-4a7c-bbfb-82a431d6d140";
-
+//Note process.env only works on server-side, not client-side
+const API_ENDPOINT = process.env.CODEHOOKS_ENDPOINT;
+const API_KEY = process.env.CODEHOOKS_TOKEN;
+const endpoint = process.env.JWT_ENDPOINT;
 export default function Done() {
-  const [load, setLoad] = useState(null);
+    //Clerk
+    const { isLoaded, userId, sessionId, getToken } = useAuth();
+    //React
+    const [loading, setLoading] = useState(true);
+    const [done, setDone] = useState([]);
 
-  useEffect(() => {
-    // Call Codehooks backend API
-    const fetchData = async () => {
-      const response = await fetch(API_ENDPOINT, {
-        method: "GET",
-        headers: { "x-apikey": API_KEY },
-      });
-      const data = await response.json();
-      // Change application state and reload
-      setLoad(false);
-    };
-    fetchData();
-  }, []);
+    useEffect(() => {
+        async function fetchDone() {
+            if (userId) {
+                const token = await getToken({ template: "todo" });
+                console.log("token:", token);
+                const doneList = await fetch(endpoint, {
+                    method: "GET",
+                    headers: {
+                        Authorization: "Bearer" + token,
+                    },
+                });
+                if (doneList.ok) {
+                    // const allDone = await list.json();
+                }
+                if (doneList.length > 0) {
+                    return doneList[0];
+                } else {
+                    return null;
+                }
 
-  return (
-    <>
-      <h1>done list</h1>
-      <Link href="/todos">To Do</Link>
-    </>
-  );
+                setDone(doneList);
+            }
+        }
+        fetchDone();
+    }, [isLoaded]);
+
+    // // In case the user signs out while on the page.
+    // if (!isLoaded) {
+    //     return <div>User Logged Out</div>;
+    // } else {
+    //     return <div>Hello, USER: {userId}</div>;
+    // }
+
+    return (
+        <>
+            <h1>done list</h1>
+            <h3>User:{userId}</h3>
+            <Link href='/todos'>To Do</Link>
+        </>
+    );
 }

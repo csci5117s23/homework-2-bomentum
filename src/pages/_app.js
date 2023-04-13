@@ -1,5 +1,5 @@
 import "@/styles/globals.css";
-import { useState, useEffect } from "react";
+// import { useState, useEffect } from "react";
 import {
     ClerkProvider,
     SignedIn,
@@ -9,16 +9,10 @@ import {
 } from "@clerk/nextjs";
 import { useRouter } from "next/router";
 
-//  List pages you want to be publicly accessible, or leave empty if
-//  every page requires authentication. Use this naming strategy:
-//   "/"              for pages/index.js
-//   "/foo"           for pages/foo/index.js
-//   "/foo/bar"       for pages/foo/bar.js
-//   "/foo/[...bar]"  for pages/foo/[...bar].js
-const publicPages = ["/sign-in/[[...index]]", "/sign-up/[[...index]]"];
-const localization = {
-    socialButtonsBlockButton: "Sign In with {{provider|titleize}}",
-};
+// If the current route is listed as public, render it directly
+// Otherwise, use Clerk to require authentication
+//  Only home page and sign-in page public
+const publicPages = ["/sign-in/[[...index]]", "/sign-up/[[...index]]", "/"];
 
 export default function MyApp({ Component, pageProps }) {
     // Get the pathname
@@ -27,8 +21,6 @@ export default function MyApp({ Component, pageProps }) {
     // Check if the current route matches a public page
     const isPublicPage = publicPages.includes(pathname);
 
-    // If the current route is listed as public, render it directly
-    // Otherwise, use Clerk to require authentication
     return (
         <ClerkProvider {...pageProps}>
             {isPublicPage ? (
@@ -40,7 +32,7 @@ export default function MyApp({ Component, pageProps }) {
                         <Component {...pageProps} />
                     </SignedIn>
                     <SignedOut>
-                        <SignIn localization={localization} />
+                        <SignIn />
                     </SignedOut>
                 </>
             )}
