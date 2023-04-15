@@ -22,10 +22,10 @@ export default function Done() {
                 const token = await getToken({ template: "todo" });
                 // console.log("token:", token);
                 const getDone = await loadDone(userId, token);
-                console.log("getDone: ", getDone);
+                // console.log("getDone: ", getDone);
                 doneList = getDone;
                 setDone(getDone);
-                console.log("done: ", done);
+                // console.log("done: ", done);
                 setLoading(false);
             }
         }

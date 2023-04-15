@@ -29,8 +29,8 @@ export async function addItem(item, userId) {
 
 //Load undone items
 export async function loadNotDone(userId, authToken) {
-    console.log('loadDone: ', userId);
-    console.log('token: ', authToken);
+    // console.log('loadDone: ', userId);
+    // console.log('token: ', authToken);
     const result = await fetch(
         endpoint + '/todo?userId=' + userId + '&done=false&sort=-createdOn',
         {
@@ -57,8 +57,8 @@ export async function loadNotDone(userId, authToken) {
 
 //Load undone items
 export async function loadDone(userId, authToken) {
-    console.log('loadDone: ', userId);
-    console.log('token: ', authToken);
+    // console.log('loadDone: ', userId);
+    // console.log('token: ', authToken);
     const result = await fetch(
         endpoint + '/todo?userId=' + userId + '&done=true&sort=-createdOn',
         {

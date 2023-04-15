@@ -26,7 +26,7 @@ export default function ToDos() {
         const data = { item: event.target.item.value };
         // const JSONdata = JSON.stringify(data);
         try {
-            console.log('data to addItem: ', data);
+            // console.log('data to addItem: ', data);
             addItem(JSON.stringify(data), (userId));
         } catch (error) {
             console.log('Error in handleSubmit: ', error);
@@ -43,8 +43,8 @@ export default function ToDos() {
                     const items = await loadNotDone(userId, token);
                     setToDoItems(items);
 
-                    console.log('todoItems: ', todoItems);
-                    console.log('items: ', items);
+                    // console.log('todoItems: ', todoItems);
+                    // console.log('items: ', items);
                 } catch (e) {
                     console.log(e);
                 }
@@ -71,7 +71,7 @@ export default function ToDos() {
                     <li>Items to complete: </li>
                     {todoItems.length >= 1 ?(
                         todoItems.map((todo) => {
-                            console.log("what ", todo.item)
+                            // console.log("what ", todo.item)
                             return (<li>{todo.item}</li>)
                         })
                 ) : 
