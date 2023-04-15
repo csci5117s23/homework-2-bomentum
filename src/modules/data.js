@@ -12,6 +12,7 @@ export async function addItem(item, userId) {
         'method': 'POST',
         'headers': {
             'x-apikey': apikey,
+            'X-Content-Type-Options': nosniff,
             'Content-Type': 'application/json',
         },
 
@@ -37,6 +38,7 @@ export async function loadNotDone(userId, authToken) {
             method: 'GET',
             headers: {
                 'x-apikey': apikey,
+                'X-Content-Type-Options': nosniff
             },
             // headers: {
             //     Authorization: "Bearer " + authToken,
@@ -65,6 +67,8 @@ export async function loadDone(userId, authToken) {
             method: 'GET',
             headers: {
                 'x-apikey': apikey,
+                'X-Content-Type-Options': nosniff
+
             },
             // headers: {
             //     Authorization: "Bearer " + authToken,
