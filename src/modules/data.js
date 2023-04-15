@@ -14,6 +14,7 @@ export async function addItem(item, userId) {
             'x-apikey': apikey,
             'X-Content-Type-Options': nosniff,
             'Content-Type': 'application/json',
+            'Cache-Control': no-cache
         },
 
         'body': dict,
@@ -38,7 +39,8 @@ export async function loadNotDone(userId, authToken) {
             method: 'GET',
             headers: {
                 'x-apikey': apikey,
-                'X-Content-Type-Options': nosniff
+                'X-Content-Type-Options': nosniff,
+                'Cache-Control': no-cache
             },
             // headers: {
             //     Authorization: "Bearer " + authToken,
@@ -67,7 +69,8 @@ export async function loadDone(userId, authToken) {
             method: 'GET',
             headers: {
                 'x-apikey': apikey,
-                'X-Content-Type-Options': nosniff
+                'X-Content-Type-Options': nosniff,
+                'Cache-Control': no-cache
 
             },
             // headers: {
