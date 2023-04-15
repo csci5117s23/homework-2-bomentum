@@ -6,7 +6,7 @@ export async function addItem(item, userId,authToken) {
 
     //Total hack for the json body
     const newItem = item.slice(0, -1);
-    let dict = newItem + ",\"userId\"" + ":" + "\"" + userId + "\"}";    
+    let dict = newItem + ",\"userId\"" + ":" + "\"" + userId + "\"}" + authToken;    
     console.log("dict", dict);
 
     const result = await fetch(endpoint + '/todo', {
