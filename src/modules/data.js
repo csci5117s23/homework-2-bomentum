@@ -65,14 +65,12 @@ export async function loadDone(userId, authToken) {
         endpoint + '/todo?userId=' + userId + '&done=true&sort=-createdOn',
         {
             method: 'GET',
-            headers: {
-                'x-apikey': apikey,
-
-
-            },
             // headers: {
-            //     Authorization: "Bearer " + authToken,
+            //     'x-apikey': apikey,
             // },
+            headers: {
+                Authorization: "Bearer " + authToken,
+            },
         }
     );
 
