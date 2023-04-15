@@ -70,17 +70,15 @@ export default function ToDos() {
                 </form>
                 <ul>
                     <li>Items to complete: </li>
-                    {todoItems.length >= 1 ?(
-                        todoItems.map((todo) => {
-                            // console.log("what ", todo.item)
-                            return (<li>{todo.item}</li>)
-                        })
-                ) : 
-                    <h1>Nothing in To Do List</h1>
-                    }
-                    <li>end</li>
+                    
 
-            </ul>
+                    {todoItems.length >= 1 ?
+                        (todoItems.map(todo => (<div key={todo._id}><p>{todo.item}</p>)</div>))) :
+                        (<h1>Nothing in To Do List</h1>)
+                    }
+                    
+                    <li>end</li>
+                </ul>
 
             </>
         );

@@ -9,6 +9,7 @@ export default function Done() {
     //React
     const [done, setDone] = useState([]);
     const [loading, setLoading] = useState(true);
+    console.log("done waaaay before; ", done.length);
 
 
     useEffect(() => {
@@ -19,9 +20,10 @@ export default function Done() {
                 console.log("useEffect token:", token);
                 const getDone = await loadDone(userId, token);
                 console.log("getDone: ", getDone);
-                const doneList = getDone;
+                console.log("before setting done: ", done.length);
                 setDone(getDone);
-             console.log("done: ", done);
+                console.log("after setting done: ", done.length);
+
                 setLoading(false);
             }
         }
@@ -32,8 +34,15 @@ export default function Done() {
         <>
             <h1>Completed Items: {done.length}</h1>
             <h3>User:{userId}</h3>
-            {/* <h3>{done[0].item}</h3 >
-            <h3>{done[1].item}</h3 > */}
+            <div>
+                {done.map(todo => (
+                    <div key={todo._id}>
+                        <p>{todo.item}</p>
+                    </div>
+                ))}
+            </div>
+            
+
 
             <Link href='/todos'>To Do</Link>
 
