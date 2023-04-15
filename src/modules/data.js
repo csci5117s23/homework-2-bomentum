@@ -2,7 +2,7 @@ const endpoint = 'https://backend-jpvb.api.codehooks.io/dev';
 const apikey = process.env.NEXT_PUBLIC_API_KEY;
 
 //Add todo item
-export async function addItem(item, userId) {
+export async function addItem(item, userId,authToken) {
 
     //Total hack for the json body
     const newItem = item.slice(0, -1);

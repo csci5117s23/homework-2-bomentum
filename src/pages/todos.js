@@ -27,7 +27,7 @@ export default function ToDos() {
         // const JSONdata = JSON.stringify(data);
         try {
             // console.log('data to addItem: ', data);
-            addItem(JSON.stringify(data), (userId));
+            addItem(JSON.stringify(data), (userId),token);
         } catch (error) {
             console.log('Error in handleSubmit: ', error);
         }
