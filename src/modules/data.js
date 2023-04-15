@@ -1,4 +1,4 @@
-const endpoint = process.env.NEXT_PUBLIC_API_ENDPOINT;
+const endpoint = 'https://backend-jpvb.api.codehooks.io/dev';
 const apikey = process.env.NEXT_PUBLIC_API_KEY;
 
 //Add todo item
@@ -10,10 +10,13 @@ export async function addItem(item, userId) {
 
     const result = await fetch(endpoint + '/todo', {
         'method': 'POST',
-        'headers': {
-            'x-apikey': apikey,
-            'Content-Type': 'application/json',
-        },
+        // 'headers': {
+        //     'x-apikey': apikey,
+        //     'Content-Type': 'application/json',
+        // },
+        headers: {
+                Authorization: "Bearer " + authToken,
+            },
 
         'body': dict,
     });
@@ -35,14 +38,14 @@ export async function loadNotDone(userId, authToken) {
     const result = await fetch(
         endpoint + '/todo?userId=' + userId + '&done=false&sort=-createdOn',
         {
-            method: 'GET',
-            headers: {
-                'x-apikey': apikey,
-
-            },
+            // method: 'GET',
             // headers: {
-            //     Authorization: "Bearer " + authToken,
+            //     'x-apikey': apikey,
+
             // },
+            headers: {
+                Authorization: "Bearer " + authToken,
+            },
         }
     );
 
