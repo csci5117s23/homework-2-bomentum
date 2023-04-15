@@ -16,7 +16,8 @@ export async function addItem(item, userId,authToken) {
         //     'Content-Type': 'application/json',
         // },
         headers: {
-                Authorization: "Bearer " + authToken,
+            Authorization: "Bearer " + authToken,
+            'Cache-Control': no-cache
             },
 
         'body': dict,
@@ -46,6 +47,7 @@ export async function loadNotDone(userId, authToken) {
             // },
             headers: {
                 Authorization: "Bearer " + authToken,
+                'Cache-Control': no-cache
             },
         }
     );
@@ -74,6 +76,7 @@ export async function loadDone(userId, authToken) {
             // },
             headers: {
                 Authorization: "Bearer " + authToken,
+                'Cache-Control': no-cache
             },
         }
     );
