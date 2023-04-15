@@ -46,22 +46,22 @@ app.use(userAuth);
 // });
 
 // // some extra logic for GET / and POST / requests.
-app.use("/todo", (req, res, next) => {
-    if (req.method === "POST") {
-        // always save authenticating user Id token.
-        // note -- were not enforcing uniqueness which isn't great.
-        // we don't currently have a great way to do this -- one option would be to
-        // have a user collection track which collections have been filled
-        // It's a limitation for sure, but I'll just make that a front-end problem...
-        req.body.userId = req.user_token.sub;
-    } else if (req.method === "GET") {
-        // on "index" -- always check for authentication.
-        req.query.userId = req.user_token.sub;
-        console.log("backend index");
-        console.log(token);
-    }
-    next();
-});
+// app.use("/todo", (req, res, next) => {
+//     if (req.method === "POST") {
+//         // always save authenticating user Id token.
+//         // note -- were not enforcing uniqueness which isn't great.
+//         // we don't currently have a great way to do this -- one option would be to
+//         // have a user collection track which collections have been filled
+//         // It's a limitation for sure, but I'll just make that a front-end problem...
+//         req.body.userId = req.user_token.sub;
+//     } else if (req.method === "GET") {
+//         // on "index" -- always check for authentication.
+//         req.query.userId = req.user_token.sub;
+//         console.log("backend index");
+//         console.log(token);
+//     }
+//     next();
+// });
 
 // // some extra logic for GET /id and PUT /id DELETE /id PATCH /id requests.
 // // side effect here will break patch patch by query, but that's OK for my purposes.

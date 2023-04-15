@@ -1,4 +1,4 @@
-const endpoint = 'https://backend-jpvb.api.codehooks.io/dev';
+const endpoint = 'https://backend-jpvb.api.codehooks.io/dev/';
 const apikey = process.env.NEXT_PUBLIC_API_KEY;
 
 //Add todo item
