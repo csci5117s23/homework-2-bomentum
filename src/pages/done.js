@@ -36,8 +36,8 @@ export default function Done() {
         <>
             <h1>Completed Items: {done.length}</h1>
             <h3>User:{userId}</h3>
-            <h3>{done[0].item}</h3 >
-            <h3>{done[1].item}</h3 >
+            {/* <h3>{done[0].item}</h3 >
+            <h3>{done[1].item}</h3 > */}
 
             <Link href='/todos'>To Do</Link>
 
