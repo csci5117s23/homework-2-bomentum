@@ -21,17 +21,6 @@ export default function ToDos() {
         return <div> NOT LOGGED IN. SHOW LOGIN PAGE. SOMETHING IS WRONG</div>;
     }
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        const data = { item: event.target.item.value };
-        // const JSONdata = JSON.stringify(data);
-        try {
-            // console.log('data to addItem: ', data);
-            addItem(JSON.stringify(data), (userId),token);
-        } catch (error) {
-            console.log('Error in handleSubmit: ', error);
-        }
-    };
 
     // Get to do items that are false
     useEffect(() => {
@@ -53,6 +42,18 @@ export default function ToDos() {
         }
         process();
     }, [isLoaded]);
+
+        const handleSubmit = (e) => {
+        e.preventDefault();
+        const data = { item: event.target.item.value };
+        // const JSONdata = JSON.stringify(data);
+        try {
+            // console.log('data to addItem: ', data);
+            addItem(JSON.stringify(data), (userId),token);
+        } catch (error) {
+            console.log('Error in handleSubmit: ', error);
+        }
+    };
 
     if (loading) {
         return <span>loading .......</span>;
@@ -85,3 +86,4 @@ export default function ToDos() {
         );
     }
 }
+
