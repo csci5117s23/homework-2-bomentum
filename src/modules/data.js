@@ -12,9 +12,7 @@ export async function addItem(item, userId) {
         'method': 'POST',
         'headers': {
             'x-apikey': apikey,
-            'X-Content-Type-Options': nosniff,
             'Content-Type': 'application/json',
-            'Cache-Control': no-cache
         },
 
         'body': dict,
@@ -31,16 +29,16 @@ export async function addItem(item, userId) {
 
 //Load undone items
 export async function loadNotDone(userId, authToken) {
-    // console.log('loadDone: ', userId);
-    // console.log('token: ', authToken);
+    console.log('loadDone: ', userId);
+    console.log('token: ', authToken);
+    console.log("detached head correction");
     const result = await fetch(
         endpoint + '/todo?userId=' + userId + '&done=false&sort=-createdOn',
         {
             method: 'GET',
             headers: {
                 'x-apikey': apikey,
-                'X-Content-Type-Options': nosniff,
-                'Cache-Control': no-cache
+
             },
             // headers: {
             //     Authorization: "Bearer " + authToken,
@@ -69,8 +67,7 @@ export async function loadDone(userId, authToken) {
             method: 'GET',
             headers: {
                 'x-apikey': apikey,
-                'X-Content-Type-Options': nosniff,
-                'Cache-Control': no-cache
+
 
             },
             // headers: {
