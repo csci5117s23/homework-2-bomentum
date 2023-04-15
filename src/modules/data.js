@@ -11,17 +11,18 @@ export async function addItem(item, userId, authToken) {
 
     const result = await fetch(endpoint + '/todo', {
         'method': 'POST',
-        // 'headers': {
-        //     'x-apikey': apikey,
-        //     'Content-Type': 'application/json',
-        // },
         'headers': {
-            'Authorization': "Bearer " + authToken,
-            'Cache-Control': 'no-cache',
+            'x-apikey': apikey,
             'Content-Type': 'application/json',
-            },
-
         'body': dict,
+        },
+        // 'headers': {
+        //     'Authorization': "Bearer " + authToken,
+        //     'Cache-Control': 'no-cache',
+        //     'Content-Type': 'application/json',
+        //     },
+
+        // 'body': dict,
     });
 
     if (result.ok) {
@@ -74,14 +75,15 @@ export async function loadDone(userId, authToken) {
     const result = await fetch(endpoint + '/todo?userId=' + userId + '&done=true&sort=-createdOn',
         {
             method: 'GET',
-            // headers: {
-            //     'x-apikey': apikey,
-            // },
             headers: {
-                Authorization: "Bearer " + authToken,
-                'Cache-Control': 'no-cache',
+                'x-apikey': apikey,
                 'Content-Type': 'application/json'
             },
+            // headers: {
+            //     Authorization: "Bearer " + authToken,
+            //     'Cache-Control': 'no-cache',
+            //     'Content-Type': 'application/json'
+            // },
         }
     );
 
