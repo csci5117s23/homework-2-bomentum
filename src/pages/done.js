@@ -16,7 +16,7 @@ export default function Done() {
             if (userId) {
                 //From CLERK JWT templates for authentication
                 const token = await getToken({ template: "todo" });
-                console.log("token:", token);
+                console.log("useEffect token:", token);
                 const getDone = await loadDone(userId, token);
                 console.log("getDone: ", getDone);
                 const doneList = getDone;

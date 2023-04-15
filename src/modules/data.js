@@ -72,12 +72,12 @@ export async function loadNotDone(userId, authToken) {
 export async function loadDone(userId, authToken) {
     console.log('loadDone: ', userId);
     console.log('token: ', authToken);
+    console.log("apikey: ", apikey);
     const result = await fetch(endpoint + '/todo?userId=' + userId + '&done=true&sort=-createdOn',
         {
             method: 'GET',
             headers: {
                 'x-apikey': apikey,
-                'Content-Type': 'application/json'
             },
             // headers: {
             //     Authorization: "Bearer " + authToken,
