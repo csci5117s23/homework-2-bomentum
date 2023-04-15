@@ -31,6 +31,7 @@ export async function addItem(item, userId) {
 export async function loadNotDone(userId, authToken) {
     console.log('loadDone: ', userId);
     console.log('token: ', authToken);
+    console.log("detached head correction");
     const result = await fetch(
         endpoint + '/todo?userId=' + userId + '&done=false&sort=-createdOn',
         {
