@@ -2,11 +2,11 @@ const endpoint = 'https://backend-jpvb.api.codehooks.io/dev';
 const apikey = process.env.NEXT_PUBLIC_API_KEY;
 
 //Add todo item
-export async function addItem(item, userId,authToken) {
+export async function addItem(item, userId, authToken) {
 
     //Total hack for the json body
     const newItem = item.slice(0, -1);
-    let dict = newItem + ",\"userId\"" + ":" + "\"" + userId + "\"}" + authToken;    
+    let dict = newItem + ",\"userId\"" + ":" + "\"" + userId + "\"}";    
     console.log("dict", dict);
 
     const result = await fetch(endpoint + '/todo', {
@@ -15,16 +15,17 @@ export async function addItem(item, userId,authToken) {
         //     'x-apikey': apikey,
         //     'Content-Type': 'application/json',
         // },
-        headers: {
-            Authorization: "Bearer " + authToken,
-            'Cache-Control': no-cache
+        'headers': {
+            'Authorization': "Bearer " + authToken,
+            'Cache-Control': 'no-cache',
+            'Content-Type': 'application/json',
             },
 
         'body': dict,
     });
 
     if (result.ok) {
-        console.log('get auth okay');
+        console.log('get auth okay: addItem');
     } else {
         console.log('no goooo', result);
     }
@@ -36,39 +37,41 @@ export async function addItem(item, userId,authToken) {
 export async function loadNotDone(userId, authToken) {
     console.log('loadDone: ', userId);
     console.log('token: ', authToken);
-    console.log("detached head correction");
+
     const result = await fetch(
         endpoint + '/todo?userId=' + userId + '&done=false&sort=-createdOn',
         {
-            // method: 'GET',
+            'method': 'GET',
             // headers: {
             //     'x-apikey': apikey,
 
             // },
-            headers: {
+            'headers': {
                 Authorization: "Bearer " + authToken,
-                'Cache-Control': no-cache
+                'Cache-Control': 'no-cache',
+                'Content-Type': 'application/json'
             },
         }
     );
 
     //return json data or log error
     if (result.ok) {
-        console.log('get auth okay');
-        return await result.json();
+        console.log('loadNotDone:get auth okay');
+        return result;
+        console.log("where did we go");
+        //return await result.json();
     } else {
         console.log(result);
     }
-
+    console.log("before returning null");
     return null;
 }
 
 //Load undone items
 export async function loadDone(userId, authToken) {
-    // console.log('loadDone: ', userId);
-    // console.log('token: ', authToken);
-    const result = await fetch(
-        endpoint + '/todo?userId=' + userId + '&done=true&sort=-createdOn',
+    console.log('loadDone: ', userId);
+    console.log('token: ', authToken);
+    const result = await fetch(endpoint + '/todo?userId=' + userId + '&done=true&sort=-createdOn',
         {
             method: 'GET',
             // headers: {
@@ -76,14 +79,17 @@ export async function loadDone(userId, authToken) {
             // },
             headers: {
                 Authorization: "Bearer " + authToken,
-                'Cache-Control': no-cache
+                'Cache-Control': 'no-cache',
+                'Content-Type': 'application/json'
             },
         }
     );
 
+    const response = await result.json();
+    console.log("json response in data.js", response);
     //return json data or log error
     if (result.ok) {
-        console.log('get auth okay');
+        console.log('get auth okay: loadDone');
         return await result.json();
     } else {
         console.log(result);

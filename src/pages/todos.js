@@ -6,11 +6,9 @@ import { useAuth } from '@clerk/clerk-react';
 import Todo from './todo/todo';
 
 export default function ToDos() {
-    const [userInput, setUserInput] = useState('');
 
     const [todoItems, setToDoItems] = useState([]);
     const [loading, setLoading] = useState(true);
-    
 
     //Clerk
     const { isLoaded, userId, isSignedIn, getToken } = useAuth();
@@ -30,12 +28,13 @@ export default function ToDos() {
                     //From CLERK JWT templates for authentication
                     const token = await getToken({ template: 'todo' });
                     const items = await loadNotDone(userId, token);
+                    console.log('items: ', items);
                     setToDoItems(items);
 
-                    // console.log('todoItems: ', todoItems);
-                    // console.log('items: ', items);
+                    console.log('todoItems: ', todoItems);
+                    
                 } catch (e) {
-                    console.log(e);
+                    console.log("error in todos useEffect::", e.message);
                 }
                 setLoading(false);
             }
@@ -45,11 +44,12 @@ export default function ToDos() {
 
         const handleSubmit = (e) => {
         e.preventDefault();
+        
         const data = { item: event.target.item.value };
         // const JSONdata = JSON.stringify(data);
         try {
-            // console.log('data to addItem: ', data);
-            addItem(JSON.stringify(data), (userId),token);
+            console.log('token in handleSubmit: ',data);
+            addItem(JSON.stringify(data), (userId));
         } catch (error) {
             console.log('Error in handleSubmit: ', error);
         }

@@ -1,7 +1,7 @@
 :root {
-  background-color: lightblue;
+  background-color: rgb(229, 237, 240);
   --max-width: 1100px;
-  --border-radius: 12px;
+  --border-radius: 5px;
   --font-mono: ui-monospace, Menlo, Monaco, 'Cascadia Mono', 'Segoe UI Mono',
     'Roboto Mono', 'Oxygen Mono', 'Ubuntu Monospace', 'Source Code Pro',
     'Fira Mono', 'Droid Sans Mono', 'Courier New', monospace;
@@ -21,6 +21,7 @@ body {
   overflow-x: hidden;
   text-align: center;
   position: relative;
+  background: transparent;
 }
 
 .pure-button {
