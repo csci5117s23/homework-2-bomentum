@@ -2,28 +2,30 @@
  * Auto generated Codehooks (c) example
  * Install: npm i codehooks-js codehooks-crudlify
  */
-import { app, Datastore } from "codehooks-js";
-import { crudlify } from "codehooks-crudlify";
-import { date, object, string, boolean } from "yup";
-import jwtDecode from "jwt-decode";
+import { app, Datastore } from 'codehooks-js';
+import { crudlify } from 'codehooks-crudlify';
+import { date, object, string, boolean } from 'yup';
+import jwtDecode from 'jwt-decode';
 
 //database schema
 const todo = object({
-    name: string().required(),
+    userId: string().required(),
     item: string().required(),
     done: boolean().required().default(false),
     createdOn: date().default(() => new Date()),
 });
 
-// Kluver's Code
-// This can largely be copy - pasted, it just grabs the authorization token and parses it, stashing it on the request.
+// // Kluver's Code
+// // This can largely be copy - pasted, it just grabs the authorization token and parses it, stashing it on the request.
 const userAuth = async (req, res, next) => {
     try {
         const { authorization } = req.headers;
         if (authorization) {
-            const token = authorization.replace("Bearer ", "");
+            const token = authorization.replace('Bearer ', '');
+            const conn = await Datastore.open();
             // NOTE this doesn't validate, but we don't need it to. codehooks is doing that for us.
             const token_parsed = jwtDecode(token);
+            alert(token_parsed);
             req.user_token = token_parsed;
         }
         next();
@@ -31,10 +33,20 @@ const userAuth = async (req, res, next) => {
         next(error);
     }
 };
+// intercept all routes with the user profile middleware function
 app.use(userAuth);
 
+// app.get("/todo", async (req, res) => {
+//     const result = await Datastore.open();
+//     if (result.ok) {
+//         console.log("get auth okay");
+//     } else {
+//         console.log("Response: ", result);
+//     }
+// });
+
 // // some extra logic for GET / and POST / requests.
-// app.use("/pres", (req, res, next) => {
+// app.use("/todo", (req, res, next) => {
 //     if (req.method === "POST") {
 //         // always save authenticating user Id token.
 //         // note -- were not enforcing uniqueness which isn't great.
@@ -45,6 +57,7 @@ app.use(userAuth);
 //     } else if (req.method === "GET") {
 //         // on "index" -- always check for authentication.
 //         req.query.userId = req.user_token.sub;
+//         console.log(token);
 //     }
 //     next();
 // });
