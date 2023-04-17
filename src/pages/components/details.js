@@ -1,15 +1,5 @@
-import { use, useState } from "react"
+// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
-export default function Details() {
-    const [loading, setLoading] = useState(true);
-
-   
-
-    if (loading) {
-        return <span>loading .....</span>
-    }
-    else {
-        return
-        <><h1>Finish Me</h1></>
-    }
+export default function handler(req, res) {
+  res.status(200).json({ name: 'Delete later' })
 }

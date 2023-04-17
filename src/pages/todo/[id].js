@@ -56,13 +56,13 @@ export default function Id() {
         return (
             <div>
                 <p>To do for id # {id}</p>
-                <div className="singleItem">
+                {/* <div className="singleItem">
                 {itemId.map(todo => (
                     <div key={todo._id}>
                         <p><form contentEditable={true} >{todo.item}</form> <DoneButton done={todo.done.valueOf()} id={todo._id} item={todo.item} /> </p>
                 </div>
                 ))}
-            </div>
+            </div> */}
                 <Link href='/todos'>To Do</Link>
             </div>
         );
