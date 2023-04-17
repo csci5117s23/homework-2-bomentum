@@ -8,6 +8,7 @@ import Link from 'next/link';
 export default function ToDos() {
     const [todoItems, setToDoItems] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [newItem, setNewItem] = useState(true);
 
     //Clerk
     const { isLoaded, userId, isSignedIn, getToken } = useAuth();
@@ -22,6 +23,7 @@ export default function ToDos() {
     // Get to do items that are false
     useEffect(() => {
         async function process() {
+
             if (userId) {
                 try {
                     //From CLERK JWT templates for authentication
@@ -35,13 +37,16 @@ export default function ToDos() {
                 } catch (e) {
                     console.log("error in todos useEffect::", e.message);
                 }
-                setLoading(false);
+                
             }
+            setLoading(false);
+            setNewItem(false);
         }
         process();
-    }, [isLoaded,todoItems]);
+    }, [isLoaded, newItem]);
 
-        async function handleSubmit (e) {
+    async function handleSubmit(e) {
+        setNewItem(false);
             e.preventDefault();
             const data = event.target.item.value;
             const token = await getToken({ template: 'todo' });
@@ -53,6 +58,7 @@ export default function ToDos() {
             } catch (error) {
                 console.log('Error in handleSubmit: ', error);
             }
+            
             
     };
 
@@ -78,7 +84,6 @@ export default function ToDos() {
                         (<h1>Nothing in To Do List</h1>)
                         }
                        
-                   
                     <li>end</li>
                     </ul>
                      </div>

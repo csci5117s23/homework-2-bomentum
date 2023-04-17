@@ -19,6 +19,7 @@ export default function Id() {
     const [itemId, setItemId] = useState([]);
     const [loading, setLoading] = useState(true);
     const [itemChange, setItemChange] = useState(true);
+    const [state, setState] = useState();
 
 
     useEffect(() => {
@@ -38,12 +39,12 @@ export default function Id() {
         fetchOne();
     }, [isLoaded, itemChange]);
 
-    async function getItem() {
+    // async function getItem() {
 
-        const data = e.currentTarget.value;
-        console.log("change func", data);
-        return data;
-    }
+    //     const data = e.currentTarget.value;
+    //     console.log("change func", data);
+    //     return data;
+    // }
 
     if (id) {
         return (
@@ -52,7 +53,7 @@ export default function Id() {
                 <div className="singleItem">
                 {itemId.map(todo => (
                     <div key={todo._id}>
-                        <p><form contentEditable={true} >{todo.item}</form> <DoneButton done={todo.done.valueOf()} id={todo._id} item={getItem} /> </p>
+                        <p><form contentEditable={true} onChange={(e)=>setState(e.target.value)}>{todo.item}</form> <DoneButton done={todo.done.valueOf()} id={todo._id} item={state} /> </p>
                 </div>
                 ))}
             </div>
