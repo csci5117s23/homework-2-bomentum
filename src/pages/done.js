@@ -36,15 +36,16 @@ export default function Done() {
             <h3>User:{userId}</h3>
             <div>
                 {done.map(todo => (
-                    <div key={todo._id}>
+                    <h4 key={todo._id}>
                         <p>{todo.item}</p>
-                    </div>
+                    </h4>
                 ))}
             </div>
             
 
-
-            <Link href='/todos'>To Do</Link>
+            <div className="linklist">
+                <Link href='/todos'><h2>To Do List</h2></Link>
+            </div>
 
         </>
     );

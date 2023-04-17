@@ -1,12 +1,11 @@
 //Used Various Nextjs documentation examples
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
 import { addItem, loadNotDone } from '@/modules/data';
 import { useAuth } from '@clerk/clerk-react';
-import Todo from './todo/todo';
+import Link from 'next/link';
+
 
 export default function ToDos() {
-
     const [todoItems, setToDoItems] = useState([]);
     const [loading, setLoading] = useState(true);
 
@@ -19,7 +18,7 @@ export default function ToDos() {
         return <div> NOT LOGGED IN. SHOW LOGIN PAGE. SOMETHING IS WRONG</div>;
     }
 
-
+    
     // Get to do items that are false
     useEffect(() => {
         async function process() {
@@ -40,19 +39,21 @@ export default function ToDos() {
             }
         }
         process();
-    }, [isLoaded]);
+    }, [isLoaded,loading]);
 
-        const handleSubmit = (e) => {
-        e.preventDefault();
-        
-        const data = { item: event.target.item.value };
-        // const JSONdata = JSON.stringify(data);
-        try {
-            console.log('token in handleSubmit: ',data);
-            addItem(JSON.stringify(data), (userId));
-        } catch (error) {
-            console.log('Error in handleSubmit: ', error);
-        }
+        async function handleSubmit (e) {
+            e.preventDefault();
+            const data = event.target.item.value;
+            const token = await getToken({ template: 'todo' });
+
+            try {
+                console.log('token in handleSubmit: ',data);
+                addItem(data, userId, token);
+                setLoading(false);
+            } catch (error) {
+                console.log('Error in handleSubmit: ', error);
+            }
+            
     };
 
     if (loading) {
@@ -68,17 +69,19 @@ export default function ToDos() {
                         placeholder='New To-Do Item'></input>
                     <button type='submit'>Add Task</button>
                 </form>
+                <div>
                 <ul>
                     <li>Items to complete: </li>
                     
-
                     {todoItems.length >= 1 ?
-                        (todoItems.map(todo => (<div key={todo._id}><p>{todo.item}</p>)</div>))) :
+                            (todoItems.map(todo => (<div className="singleLine" key={todo._id}><Link href={`/todo/${todo._id}`}>{todo.item} id#{todo._id}</Link></div>))) :
                         (<h1>Nothing in To Do List</h1>)
-                    }
-                    
+                        }
+                       
+                   
                     <li>end</li>
-                </ul>
+                    </ul>
+                     </div>
 
             </>
         );
