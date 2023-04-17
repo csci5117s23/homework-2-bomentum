@@ -39,7 +39,7 @@ export default function ToDos() {
             }
         }
         process();
-    }, [isLoaded,loading]);
+    }, [isLoaded,todoItems]);
 
         async function handleSubmit (e) {
             e.preventDefault();

@@ -18,6 +18,7 @@ export default function Id() {
     //React
     const [itemId, setItemId] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [itemChange, setItemChange] = useState(true);
 
 
     useEffect(() => {
@@ -29,27 +30,19 @@ export default function Id() {
                 const getItem = await oneItem(userId, { id }, token);
                 setItemId(getItem);
                 setLoading(false);
+                setItemChange(false);
                 console.log("itemId: ", getItem);
                 console.log("after set item id:", itemId);
             }
         }
         fetchOne();
-    }, [isLoaded]);
+    }, [isLoaded, itemChange]);
 
-    async function changeItem(e) {
-            e.preventDefault();
+    async function getItem() {
+
         const data = e.currentTarget.value;
         console.log("change func", data);
-            const token = await getToken({ template: 'todo' });
-
-            try {
-                console.log('token in handleSubmit: ',data);
-                updateItem(data, userId, token);
-                setItemId(updateItem);
-                setLoading(false);
-            } catch (error) {
-                console.log('Error in handleSubmit: ', error);
-            }
+        return data;
     }
 
     if (id) {
@@ -59,7 +52,7 @@ export default function Id() {
                 <div className="singleItem">
                 {itemId.map(todo => (
                     <div key={todo._id}>
-                        <p><form contentEditable={true} >{todo.item}</form> <DoneButton done={todo.done.valueOf()} id={todo._id} item={todo.item} /> </p>
+                        <p><form contentEditable={true} >{todo.item}</form> <DoneButton done={todo.done.valueOf()} id={todo._id} item={getItem} /> </p>
                 </div>
                 ))}
             </div>

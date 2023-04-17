@@ -184,16 +184,17 @@ export async function updateItem(userId, done, id, item, authToken) {
 
     const dict = `{ "done": "${bool}", "item":"${item}"}`;
     console.log("dict", dict);
+    
 
     
     const result = await fetch(endpoint + `/todo/${id}`, {
-        'method': 'POST',
+        'method': 'PATCH',
         'headers': {
             'x-apikey': apikey,
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        'body': dict,
+        'body': `{ "done": "${bool}", "item":"${item}"}`,
 
         // 'headers': {
         //     'Authorization': "Bearer " + authToken,
@@ -207,7 +208,7 @@ export async function updateItem(userId, done, id, item, authToken) {
         console.log('get auth okay: addItem');
     } else {
         console.log('no goooo', result);
-        console.log("bad request bc ",result.response);
+        console.log("bad request bc ",result.statusText);
     }
 
     return result.json;
