@@ -6,6 +6,7 @@ export default function Todo({ todo }) {
     return (
         <div>
             <p>{todo}</p>
+            <h2> Testing Page</h2>
         </div>
     );
 }

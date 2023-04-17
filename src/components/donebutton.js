@@ -44,7 +44,8 @@ export function DoneButton({ done, id, item }) {
       className='doneButton'
       onClick={changeButton}
     >
-      {(false) ? <>Complete</> : <>Not Completed</>}
+      Update
+      {/* {(false) ? <>Complete</> : <>Not Completed</>} */}
     </button>
   )
 }

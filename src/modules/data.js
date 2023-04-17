@@ -177,7 +177,7 @@ export async function oneItem(userId, _id, item, authToken) {
 
 //Update item done
 export async function updateItem(userId, done, id, item, authToken) {
-    console.log("endpoint: ", endpoint);
+    console.log("item passed: ", item);
     console.log('id passed: ', id);
     const bool = !done;
     console.log("changed bool", bool)

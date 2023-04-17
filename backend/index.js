@@ -88,6 +88,9 @@ app.use(userAuth);
 //     next();
 // });
 
+//Endpoint for updates.
+//Crudlify endpoints deletes items
+// app.put ('/todos')
 // Use Crudlify to create a REST API for any collection
 crudlify(app, { todo });
 

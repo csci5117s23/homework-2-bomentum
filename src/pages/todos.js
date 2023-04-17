@@ -47,6 +47,7 @@ export default function ToDos() {
 
     async function handleSubmit(e) {
         setNewItem(false);
+        setLoading(false);
             e.preventDefault();
             const data = event.target.item.value;
             const token = await getToken({ template: 'todo' });
@@ -79,8 +80,10 @@ export default function ToDos() {
                 <ul>
                     <li>Items to complete: </li>
                     
-                    {todoItems.length >= 1 ?
-                            (todoItems.map(todo => (<div className="singleLine" key={todo._id}><Link href={`/todo/${todo._id}`}>{todo.item} id#{todo._id}</Link></div>))) :
+                        {todoItems.length >= 1 ?
+                            (todoItems.map(todo => (<div className="singleLine" key={todo._id}><Link href={`/todo/${todo._id}`}>{todo.item}</Link></div>))) :
+
+                            // (todoItems.map(todo => (<div className="singleLine" key={todo._id}><Link href={`/todo/${todo._id}`}>{todo.item} id#{todo._id}</Link></div>))) :
                         (<h1>Nothing in To Do List</h1>)
                         }
                        

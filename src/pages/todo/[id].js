@@ -19,7 +19,8 @@ export default function Id() {
     const [itemId, setItemId] = useState([]);
     const [loading, setLoading] = useState(true);
     const [itemChange, setItemChange] = useState(true);
-    const [state, setState] = useState();
+    const [userInput, setUserInput] = useState();
+    const [todoList, setToDoList] = useState([]);
 
 
     useEffect(() => {
@@ -39,12 +40,16 @@ export default function Id() {
         fetchOne();
     }, [isLoaded, itemChange]);
 
-    // async function getItem() {
+    function getInput(e) {
+        e.preventDefault();
+        setUserInput(e.target.value);
+        console.log(userInput);
+    }
 
-    //     const data = e.currentTarget.value;
-    //     console.log("change func", data);
-    //     return data;
-    // }
+    async function submitInput(e) {
+        e.preventDefault();
+        setToDoList([userInput, ...todoList]);
+    }
 
     if (id) {
         return (
@@ -53,11 +58,11 @@ export default function Id() {
                 <div className="singleItem">
                 {itemId.map(todo => (
                     <div key={todo._id}>
-                        <p><form contentEditable={true} onChange={(e)=>setState(e.target.value)}>{todo.item}</form> <DoneButton done={todo.done.valueOf()} id={todo._id} item={state} /> </p>
+                        <p><form contentEditable={true}><textarea onChange={getInput}>{todo.item}</textarea></form> <DoneButton done={todo.done.valueOf()} id={todo._id} item={userInput}/> </p>
                 </div>
                 ))}
             </div>
-                <Link href='/todos'>To Do</Link>
+                <Link href='/todos'>To Do List</Link>
             </div>
         );
     } else {
