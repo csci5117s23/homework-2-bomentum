@@ -1,4 +1,5 @@
-const endpoint = process.env.NEXT_PUBLIC_API_ENDPOINT;
+const NEXT_PUBLIC_API_ENDPOINT = process.env.NEXT_PUBLIC_API_ENDPOINT;
+const endpoint= process.env.NEXT_PUBLIC_API_ENDPOINT;
 const apikey = process.env.NEXT_PUBLIC_API_KEY;
 
 //Add todo item
@@ -9,7 +10,7 @@ export async function addItem(item, userId,authToken) {
     const dict = `{ "item": "${item}", "userId": "${userId}"}`;
     console.log("dict", dict);
     
-    const result = await fetch(endpoint + '/todo', {
+    const result = await fetch(NEXT_PUBLIC_API_ENDPOINT + '/todo', {
         'method': 'POST',
         'headers': {
             'x-apikey': apikey,
@@ -74,8 +75,8 @@ export async function loadDone(userId, authToken) {
     console.log('loadDone: ', userId);
     console.log('token: ', authToken);
     console.log("apikey: ", apikey);
-    console.log("endpoint: ", process.env.NEXT_PUBLIC_API_ENDPOINT)
-    const result = await fetch(process.env.NEXT_PUBLIC_API_ENDPOINT + '/todo?userId=' + userId + '&done=true&sort=-createdOn',
+    console.log("endpoint: ", NEXT_PUBLIC_API_ENDPOINT)
+    const result = await fetch(NEXT_PUBLIC_API_ENDPOINT + '/todo?userId=' + userId + '&done=true&sort=-createdOn',
         {
             method: 'GET',
             headers: {
@@ -110,8 +111,7 @@ export async function oneItem(userId, _id, item, authToken) {
     const id = JSON.stringify(_id.id);
     console.log('string id: ', id);
 
-    const result = await fetch(
-        endpoint + `/todo?userId=${userId}&_id=${id}`,
+    const result = await fetch(NEXT_PUBLIC_API_ENDPOINT + `/todo?userId=${userId}&_id=${id}`,
         {
             'method': 'GET',
             headers: {
