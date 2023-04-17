@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { useAuth } from '@clerk/clerk-react';
 import { oneItem, updateItem } from "@/modules/data";
 import { useState, useEffect } from 'react';
-// import { DoneButton } from "../doneButton";
+import { DoneButton } from "../doneButton";
 
 
 export default function Id() {
@@ -56,13 +56,13 @@ export default function Id() {
         return (
             <div>
                 <p>To do for id # {id}</p>
-                {/* <div className="singleItem">
+                <div className="singleItem">
                 {itemId.map(todo => (
                     <div key={todo._id}>
                         <p><form contentEditable={true} >{todo.item}</form> <DoneButton done={todo.done.valueOf()} id={todo._id} item={todo.item} /> </p>
                 </div>
                 ))}
-            </div> */}
+            </div>
                 <Link href='/todos'>To Do</Link>
             </div>
         );
