@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { useAuth } from '@clerk/clerk-react';
 import { oneItem, updateItem } from "@/modules/data";
 import { useState, useEffect } from 'react';
-import { DoneButton } from "../doneButton";
+import { DoneButton } from "../../components/donebutton";
 
 
 export default function Id() {
