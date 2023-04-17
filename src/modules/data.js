@@ -74,8 +74,8 @@ export async function loadDone(userId, authToken) {
     console.log('loadDone: ', userId);
     console.log('token: ', authToken);
     console.log("apikey: ", apikey);
-    console.log("endpoint: ", endpoint)
-    const result = await fetch(endpoint + '/todo?userId=' + userId + '&done=true&sort=-createdOn',
+    console.log("endpoint: ", process.env.NEXT_PUBLIC_API_ENDPOINT)
+    const result = await fetch(process.env.NEXT_PUBLIC_API_ENDPOINT + '/todo?userId=' + userId + '&done=true&sort=-createdOn',
         {
             method: 'GET',
             headers: {
