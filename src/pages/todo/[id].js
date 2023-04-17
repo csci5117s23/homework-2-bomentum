@@ -38,7 +38,8 @@ export default function Id() {
 
     async function changeItem(e) {
             e.preventDefault();
-            const data = e.currentTarget.value;
+        const data = e.currentTarget.value;
+        console.log("change func", data);
             const token = await getToken({ template: 'todo' });
 
             try {
