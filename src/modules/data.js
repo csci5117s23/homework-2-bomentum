@@ -1,11 +1,11 @@
-const NEXT_PUBLIC_API_ENDPOINT = process.env.NEXT_PUBLIC_API_ENDPOINT;
+//const NEXT_PUBLIC_API_ENDPOINT = process.env.NEXT_PUBLIC_API_ENDPOINT;
 const endpoint= 'https://backend-jpvb.api.codehooks.io/dev';
 const apikey = process.env.NEXT_PUBLIC_API_KEY;
 
 //Add todo item
 export async function addItem(item, userId,authToken) {
     console.log("item passed: ", item);
-    console.log('token: ', authToken);
+    console.log('token: ', endpoint);
 
     const dict = `{ "item": "${item}", "userId": "${userId}"}`;
     console.log("dict", dict);
@@ -39,6 +39,7 @@ export async function addItem(item, userId,authToken) {
 
 //Load undone items
 export async function loadNotDone(userId, authToken) {
+        console.log("endpoint: ", endpoint);
     console.log('loadDone: ', userId);
     console.log('token: ', authToken);
 
@@ -74,7 +75,7 @@ export async function loadDone(userId, authToken) {
     console.log('loadDone: ', userId);
     console.log('token: ', authToken);
     console.log("apikey: ", apikey);
-    console.log("endpoint: ", NEXT_PUBLIC_API_ENDPOINT)
+    console.log("endpoint: ", endpoint)
     const result = await fetch(endpoint + '/todo?userId=' + userId + '&done=true&sort=-createdOn',
         {
             method: 'GET',
@@ -104,6 +105,7 @@ export async function loadDone(userId, authToken) {
 
 //Get single To-Do item
 export async function oneItem(userId, _id, item, authToken) {
+        console.log("endpoint: ", endpoint);
     console.log('loadDone: ', userId);
     console.log('item id: ', _id);
     console.log('token: ', authToken);
@@ -175,7 +177,7 @@ export async function oneItem(userId, _id, item, authToken) {
 
 //Update item done
 export async function updateItem(userId, done, id, item, authToken) {
-    console.log("done passed: ", done);
+    console.log("endpoint: ", endpoint);
     console.log('id passed: ', id);
     const bool = !done;
     console.log("changed bool", bool)
