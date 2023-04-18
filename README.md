@@ -6,7 +6,7 @@ Please fill out all of the following sections to help us grade your submission:
 
 ## Student (to be completed individually)
 
-- Phet Bowman, bowma311@umn.edu
+-   Phet Bowman, bowma311@umn.edu
 
 ## Link to Site
 
@@ -14,5 +14,9 @@ Please fill out all of the following sections to help us grade your submission:
 
 ## Challenge Task
 
-- I started the challenge task: [yes/no] no
-- I completed the challenge task: [yes/no]
+-   I started the challenge task: [yes/no] no
+-   I completed the challenge task: [yes/no]
+
+## Please note
+
+I couldn't get the Bearer (backend/index.js) working with the code Professor Kluver had on his demo but spent a lot of time trying to figure it out to no success. I eventually removed/commented it out and then it worked.

@@ -4,7 +4,6 @@ import { addItem, loadNotDone } from '@/modules/data';
 import { useAuth } from '@clerk/clerk-react';
 import Link from 'next/link';
 
-
 export default function ToDos() {
     const [todoItems, setToDoItems] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -18,25 +17,19 @@ export default function ToDos() {
         return <div> NOT LOGGED IN. SHOW LOGIN PAGE. SOMETHING IS WRONG</div>;
     }
 
-    
     // Get to do items that are false
     useEffect(() => {
         async function process() {
-
             if (userId) {
                 try {
                     //From CLERK JWT templates for authentication
                     const token = await getToken({ template: 'todo' });
                     const items = await loadNotDone(userId, token);
-                    console.log('items: ', items);
-                    setToDoItems(items);
 
-                    console.log('todoItems: ', todoItems);
-                    
+                    setToDoItems(items);
                 } catch (e) {
-                    console.log("error in todos useEffect::", e.message);
+                    console.log('error in todos useEffect::', e.message);
                 }
-                
             }
             setLoading(false);
         }
@@ -44,21 +37,18 @@ export default function ToDos() {
     }, [todoItems]);
 
     async function handleSubmit(e) {
+        e.preventDefault();
+        const data = event.target.item.value;
+        const token = await getToken({ template: 'todo' });
 
-            e.preventDefault();
-            const data = event.target.item.value;
-            const token = await getToken({ template: 'todo' });
-
-            try {
-                console.log('token in handleSubmit: ',data);
-                addItem(data, userId, token);
-                setLoading(false);
-            } catch (error) {
-                console.log('Error in handleSubmit: ', error);
-            }
-            
-            
-    };
+        try {
+            console.log('token in handleSubmit: ', data);
+            addItem(data, userId, token);
+            setLoading(false);
+        } catch (error) {
+            console.log('Error in handleSubmit: ', error);
+        }
+    }
 
     if (loading) {
         return <span>loading .......</span>;
@@ -74,19 +64,23 @@ export default function ToDos() {
                     <button type='submit'>Add Task</button>
                 </form>
                 <div className='listoflist'>
-                <ul>                  
-                        {todoItems.length >= 1 ?
-                            (todoItems.map(todo =>
-                                (<div className="singleLine" key={todo._id}><Link href={`/todo/${todo._id}`}>{todo.item}</Link></div>))) :
-                        (<h1>Nothing in To Do List</h1>)
-                        }
+                    <ul>
+                        {todoItems.length >= 1 ? (
+                            todoItems.map((todo) => (
+                                <div className='singleLine' key={todo._id}>
+                                    <Link href={`/todo/${todo._id}`}>
+                                        {todo.item}
+                                    </Link>
+                                </div>
+                            ))
+                        ) : (
+                            <h1>Nothing in To Do List</h1>
+                        )}
 
-                    <li>end</li>
+                        <li>end</li>
                     </ul>
-                     </div>
-
+                </div>
             </>
         );
     }
 }
-

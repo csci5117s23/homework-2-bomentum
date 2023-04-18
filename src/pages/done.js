@@ -1,7 +1,7 @@
-import Link from "next/link";
-import { useAuth } from "@clerk/nextjs";
-import { useState, useEffect } from "react";
-import { loadDone } from "@/modules/data";
+import Link from 'next/link';
+import { useAuth } from '@clerk/nextjs';
+import { useState, useEffect } from 'react';
+import { loadDone } from '@/modules/data';
 
 export default function Done() {
     //Clerk
@@ -9,21 +9,14 @@ export default function Done() {
     //React
     const [done, setDone] = useState([]);
     const [loading, setLoading] = useState(true);
-    console.log("done waaaay before; ", done.length);
-
 
     useEffect(() => {
         async function fetchDone() {
             if (userId) {
                 //From CLERK JWT templates for authentication
-                const token = await getToken({ template: "todo" });
-                console.log("useEffect token:", token);
+                const token = await getToken({ template: 'todo' });
                 const getDone = await loadDone(userId, token);
-                console.log("getDone: ", getDone);
-                console.log("before setting done: ", done.length);
                 setDone(getDone);
-                console.log("after setting done: ", done.length);
-
                 setLoading(false);
             }
         }
@@ -38,18 +31,18 @@ export default function Done() {
                 <h1>Completed Items: {done.length}</h1>
                 <h3>User:{userId}</h3>
                 <div>
-                    {done.map(todo => (
+                    {done.map((todo) => (
                         <h4 key={todo._id}>
                             <p>{todo.item}</p>
                         </h4>
                     ))}
                 </div>
-            
 
-                <div className="linklist">
-                    <Link href='/todos'><h2>To Do List</h2></Link>
+                <div className='linklist'>
+                    <Link href='/todos'>
+                        <h2>To Do List</h2>
+                    </Link>
                 </div>
-
             </>
         );
     }
