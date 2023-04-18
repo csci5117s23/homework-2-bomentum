@@ -78,6 +78,9 @@ export default function ToDos() {
                         )}
                     </ul>
                 </div>
+                <div className='toDone'>
+                    <Link href={'/done'}>Go to Completed Items</Link>
+                </div>
             </>
         );
     }
