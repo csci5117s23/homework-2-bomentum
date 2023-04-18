@@ -76,8 +76,6 @@ export default function ToDos() {
                         ) : (
                             <h1>Nothing in To Do List</h1>
                         )}
-
-                        <li>end</li>
                     </ul>
                 </div>
             </>

@@ -43,7 +43,7 @@ export default function Id() {
         if (id && itemId.length > 0) {
             return (
                 <div>
-                    <p>To do for id # {id}</p>
+                    <h3># {id}</h3>
                     <div className='updateItem'>
                         {itemId.map((todo) => (
                             <div key={todo._id}>
@@ -74,6 +74,8 @@ export default function Id() {
                         ))}
                     </div>
                     <div>
+                        <br></br>
+                        <br></br>
                         <Link href='/todos'> Back to To-Do List</Link>
                     </div>
                 </div>
@@ -82,7 +84,11 @@ export default function Id() {
             return (
                 <>
                     <h1>No To-Do Item Found for {id}</h1>
-                    <Link href='/'>Back to To-Do List </Link>
+                    <h2>
+                        <br></br>
+                        <br></br>
+                        <Link href='/'>Back to To-Do List </Link>
+                    </h2>
                 </>
             );
         }
