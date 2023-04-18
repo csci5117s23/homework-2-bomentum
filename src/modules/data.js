@@ -12,18 +12,18 @@ export async function addItem(item, userId,authToken) {
     
     const result = await fetch(endpoint + '/todo', {
         'method': 'POST',
-        'headers': {
-            'x-apikey': apikey,
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
+        // 'headers': {
+        //     'x-apikey': apikey,
+        //     'Accept': 'application/json',
+        //     'Content-Type': 'application/json'
+        // },
         'body': dict,
 
-        // 'headers': {
-        //     'Authorization': "Bearer " + authToken,
-        //     'Cache-Control': 'no-cache',
-        //     'Content-Type': 'application/json',
-        //     },
+        'headers': {
+            'Authorization': "Bearer " + authToken,
+            'Cache-Control': 'no-cache',
+            'Content-Type': 'application/json',
+            },
 });
 
     // const response = result.json();
@@ -46,14 +46,14 @@ export async function loadNotDone(userId, authToken) {
     const result = await fetch(endpoint + '/todo?userId=' + userId + '&done=false&sort=-createdOn',
         {
             'method': 'GET',
-            headers: {
-                'x-apikey': apikey,
-            },
-            // 'headers': {
-            //     Authorization: "Bearer " + authToken,
-            //     'Cache-Control': 'no-cache',
-            //     'Content-Type': 'application/json'
+            // headers: {
+            //     'x-apikey': apikey,
             // },
+            'headers': {
+                Authorization: "Bearer " + authToken,
+                'Cache-Control': 'no-cache',
+                'Content-Type': 'application/json'
+            },
         }
     );
     
@@ -79,50 +79,53 @@ export async function loadDone(userId, authToken) {
     const result = await fetch(endpoint + '/todo?userId=' + userId + '&done=true&sort=-createdOn',
         {
             method: 'GET',
-            headers: {
-                'x-apikey': apikey,
-            },
             // headers: {
-            //     Authorization: "Bearer " + authToken,
-            //     'Cache-Control': 'no-cache',
-            //     'Content-Type': 'application/json'
+            //     'x-apikey': apikey,
             // },
+            headers: {
+                Authorization: "Bearer " + authToken,
+                'Cache-Control': 'no-cache',
+                'Content-Type': 'application/json'
+            },
         }
     );
 
-    const response = await result.json();
-    console.log("json response in data.js", response);
+    
+    console.log("json response in data.js", result);
     //return json data or log error
     if (result.ok) {
         console.log('Response okay, but valid json??? ADD ERROR CHECK LATER');
+        const response = await result.json();
         return response;
     } else {
-        console.log(result);
+        console.log(result.statusText);
     }
 
     return null;
 }
 
 //Get single To-Do item
-export async function oneItem(userId, _id, item, authToken) {
-        console.log("endpoint: ", endpoint);
+export async function oneItem(userId, _id, authToken) {
+    console.log("endpoint: ", endpoint);
     console.log('loadDone: ', userId);
     console.log('item id: ', _id);
     console.log('token: ', authToken);
-    const id = JSON.stringify(_id.id);
+
+    const newId = JSON.stringify(_id.id);
+    const id = newId.slice(1, -1);
     console.log('string id: ', id);
 
-    const result = await fetch(`https://backend-jpvb.api.codehooks.io/dev/todo?userId=${userId}&_id=${id}`,
+    const result = await fetch(endpoint + `/todo?userId=${userId}&_id=${id}`,
         {
             'method': 'GET',
-            headers: {
-                'x-apikey': apikey,
-            },
-            // 'headers': {
-            //     Authorization: "Bearer " + authToken,
-            //     'Cache-Control': 'no-cache',
-            //     'Content-Type': 'application/json'
+            // headers: {
+            //     'x-apikey': apikey,
             // },
+            'headers': {
+                Authorization: "Bearer " + authToken,
+                'Cache-Control': 'no-cache',
+                'Content-Type': 'application/json'
+            },
         }
     );
     console.log("data.js return item:", result);
@@ -131,10 +134,54 @@ export async function oneItem(userId, _id, item, authToken) {
         const response = await result.json();
         return response;
     } else {
-        console.log(result.response);
+        console.log(result.statusText);
     }
 
     return null;
+}
+
+//Update item done
+export async function updateItem(userId, id, item, change, authToken) {
+    console.log("item passed: ", item);
+    console.log('id passed: ', id);
+    console.log("changed passed", change);
+    
+    let dict = [];
+    //completed or not
+    if (change) {
+        dict = `{ "done": ${true}}`;
+    } else {
+        dict = `{ "item":"${item}"}`;
+    }
+
+    console.log("dict", dict);
+
+    
+    const result = await fetch(endpoint + `/todo/${id}`, {
+        'method': 'PATCH',
+        // 'headers': {
+        //     'x-apikey': apikey,
+        //     'Accept': 'application/json',
+        //     'Content-Type': 'application/json'
+        // },
+        'headers': {
+            'Authorization': "Bearer " + authToken,
+            'Content-Type': 'application/json',
+        },
+        'body': dict,
+});
+
+    // const response = result.json();
+    if (result.ok) {
+        console.log('get auth okay: addItem');
+    } else {
+        console.log('no goooo', result);
+        console.log("bad request bc ", result.statusText);
+        alert("Update Error. Do use ENTER or TAB", result.statusText);
+        return;
+    }
+
+    return result.json;
 }
 
 //Update item done
@@ -174,42 +221,3 @@ export async function oneItem(userId, _id, item, authToken) {
 
 //     return result.json;
 // }
-
-//Update item done
-export async function updateItem(userId, done, id, item, authToken) {
-    console.log("item passed: ", item);
-    console.log('id passed: ', id);
-    const bool = !done;
-    console.log("changed bool", bool)
-
-    const dict = `{ "done": "${bool}", "item":"${item}"}`;
-    console.log("dict", dict);
-    
-
-    
-    const result = await fetch(endpoint + `/todo/${id}`, {
-        'method': 'PATCH',
-        'headers': {
-            'x-apikey': apikey,
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        'body': `{ "done": "${bool}", "item":"${item}"}`,
-
-        // 'headers': {
-        //     'Authorization': "Bearer " + authToken,
-        //     'Cache-Control': 'no-cache',
-        //     'Content-Type': 'application/json',
-        //     },
-});
-
-    // const response = result.json();
-    if (result.ok) {
-        console.log('get auth okay: addItem');
-    } else {
-        console.log('no goooo', result);
-        console.log("bad request bc ",result.statusText);
-    }
-
-    return result.json;
-}

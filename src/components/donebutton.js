@@ -2,9 +2,13 @@ import { useAuth } from '@clerk/clerk-react';
 import { useEffect, useState } from "react";
 import { updateItem } from "@/modules/data";
 
-export function DoneButton({ done, id, item }) {
-  console.log("in button", done);
-  console.log("in button", id);
+export function DoneButton({ id, item, changeDone, value }) {
+  console.log("id in button", id);
+  console.log("item in button", item);
+    console.log("done in button", changeDone);
+  console.log("value in button", value);
+ 
+
     
   //Clerk
   const { isLoaded, userId, sessionId, getToken } = useAuth();
@@ -15,7 +19,7 @@ export function DoneButton({ done, id, item }) {
 
   useEffect(() => {
     async function process() {
-      if (done) {
+      if (changeDone) {
         //From CLERK JWT templates for authentication
         const token = await getToken({ template: "todo" });
         console.log("useEffect token:", token);
@@ -29,23 +33,24 @@ export function DoneButton({ done, id, item }) {
   async function changeButton() {
         const token = await getToken({ template: "todo" });
         console.log("useEffect token:", token);
-        const getDone = await updateItem(userId, done, id, item, token);
+        const getDone = await updateItem(userId, id, item, changeDone, token);
         console.log("getDone: ", getDone);
         console.log("before setting done: ");
       setChange(false);
-      setLoading(false);
+    setLoading(false);
   }
     
  
   return (
-    <button
+    <>
+      <button
       
       type="button"
       className='doneButton'
       onClick={changeButton}
     >
-      Update
-      {/* {(false) ? <>Complete</> : <>Not Completed</>} */}
-    </button>
+        {value}
+      </button>
+      </>
   )
 }

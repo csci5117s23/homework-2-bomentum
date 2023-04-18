@@ -30,23 +30,27 @@ export default function Done() {
         fetchDone();
     }, [isLoaded]);
 
-    return (
-        <>
-            <h1>Completed Items: {done.length}</h1>
-            <h3>User:{userId}</h3>
-            <div>
-                {done.map(todo => (
-                    <h4 key={todo._id}>
-                        <p>{todo.item}</p>
-                    </h4>
-                ))}
-            </div>
+    if (loading) {
+        return <span>loading .......</span>;
+    } else {
+        return (
+            <>
+                <h1>Completed Items: {done.length}</h1>
+                <h3>User:{userId}</h3>
+                <div>
+                    {done.map(todo => (
+                        <h4 key={todo._id}>
+                            <p>{todo.item}</p>
+                        </h4>
+                    ))}
+                </div>
             
 
-            <div className="linklist">
-                <Link href='/todos'><h2>To Do List</h2></Link>
-            </div>
+                <div className="linklist">
+                    <Link href='/todos'><h2>To Do List</h2></Link>
+                </div>
 
-        </>
-    );
+            </>
+        );
+    }
 }

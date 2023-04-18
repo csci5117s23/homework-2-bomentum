@@ -8,7 +8,6 @@ import Link from 'next/link';
 export default function ToDos() {
     const [todoItems, setToDoItems] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [newItem, setNewItem] = useState(true);
 
     //Clerk
     const { isLoaded, userId, isSignedIn, getToken } = useAuth();
@@ -40,14 +39,12 @@ export default function ToDos() {
                 
             }
             setLoading(false);
-            setNewItem(false);
         }
         process();
-    }, [isLoaded, newItem]);
+    }, [todoItems]);
 
     async function handleSubmit(e) {
-        setNewItem(false);
-        setLoading(false);
+
             e.preventDefault();
             const data = event.target.item.value;
             const token = await getToken({ template: 'todo' });
@@ -68,7 +65,7 @@ export default function ToDos() {
     } else {
         return (
             <>
-                <h1>Hello {userId}</h1>
+                <h1>{todoItems.length} To-Do to Complete:</h1>
                 <form onSubmit={handleSubmit}>
                     <input
                         type='text'
@@ -76,17 +73,14 @@ export default function ToDos() {
                         placeholder='New To-Do Item'></input>
                     <button type='submit'>Add Task</button>
                 </form>
-                <div>
-                <ul>
-                    <li>Items to complete: </li>
-                    
+                <div className='listoflist'>
+                <ul>                  
                         {todoItems.length >= 1 ?
-                            (todoItems.map(todo => (<div className="singleLine" key={todo._id}><Link href={`/todo/${todo._id}`}>{todo.item}</Link></div>))) :
-
-                            // (todoItems.map(todo => (<div className="singleLine" key={todo._id}><Link href={`/todo/${todo._id}`}>{todo.item} id#{todo._id}</Link></div>))) :
+                            (todoItems.map(todo =>
+                                (<div className="singleLine" key={todo._id}><Link href={`/todo/${todo._id}`}>{todo.item}</Link></div>))) :
                         (<h1>Nothing in To Do List</h1>)
                         }
-                       
+
                     <li>end</li>
                     </ul>
                      </div>
